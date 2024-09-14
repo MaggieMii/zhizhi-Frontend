@@ -1,0 +1,116 @@
+
+.mine .name{
+    position: relative;
+    left: 265.63rpx;
+    top: 30rpx;
+    font-size: 69.77rpx;
+}
+
+.mine .avatar{
+    position: relative;
+    width: 288rpx;
+    height: 288rpx;
+    border: 2rpx solid rgba(112,112,112,0.4);
+    margin-top: 50rpx;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 100%;
+}
+
+.mine .avatar .avatarImg{
+    position: absolute;
+    width: 180rpx;
+    height: 180rpx;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.mine .box1{
+    background-color: #0067D6;
+    margin-top: 45rpx;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 705rpx;
+    height: 234rpx;
+    border-radius: 42rpx 42rpx 42rpx 42rpx;
+    border: 2rpx solid #707070;
+}
+
+.mine .box1 .font{
+    width: 383.72rpx;
+    height: 80rpx;
+    position: absolute;
+    top: 160rpx;
+    left: 100rpx;
+}
+
+.mine .box1 .img{
+    width: 230rpx;
+    height: 230rpx;
+    position: absolute;
+    top: -20rpx;
+    left: 80rpx;
+}
+
+.mine .box1 .img2{
+    position: absolute;
+    width: 200rpx;
+    height: 180rpx;
+    right: 150rpx;
+}
+
+.mine .box2{
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 705rpx;
+    height: 769rpx;
+    margin-top: 30rpx;
+    background: #F4F4F4;
+    border-radius: 30rpx 30rpx 30rpx 30rpx;
+}
+
+.mine .box3{
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 20rpx 0;
+    width: 685rpx;
+    height: 141rpx;
+    background: #FFFFFF;
+    border-radius: 28rpx 28rpx 28rpx 28rpx;
+}
+
+.mine .box3 .rightIcon{
+    position: absolute;
+    right: 20rpx;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.mine .box3 .text{
+    position: absolute;
+    top: 50%;
+    left: 130rpx;
+    transform: translateY(-50%);
+    font-family: Segoe UI, Segoe UI;
+    font-weight: 400;
+    font-size:40rpx;
+    color: #0D0101;
+    letter-spacing: 20rpx;
+    font-style: normal;
+    text-transform: none;
+}
+
+.mine .box3 .icon{
+    height: 100rpx;
+    width: 100rpx;
+    top: 50%;
+    transform: translateY(-50%);
+    position: absolute;
+    left: 20rpx;
+}

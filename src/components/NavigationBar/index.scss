@@ -1,0 +1,31 @@
+/* NavigationBar.css */
+.navigation-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    width: 100%;
+    padding-top: 70rpx;
+    height: 100rpx; /* 导航栏高度 */
+  }
+  
+  .left-button {
+    cursor: pointer; /* 鼠标悬停时显示手形图标 */
+  }
+  
+  .left-icon {
+    width: 100rpx; /* 图片宽度 */
+    height: 100rpx; /* 图片高度 */
+    margin-top: 10rpx;
+  }
+  
+  .title-container {
+    flex-grow: 1;
+    text-align: left;
+  }
+  
+  .title {
+    font-size: 36.63rpx;
+    letter-spacing: 10rpx;
+    font-weight: 500;
+  }

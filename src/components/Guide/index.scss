@@ -1,0 +1,127 @@
+/* chat.css */
+
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  
+  .message-list {
+    flex: 1;
+    overflow-y: auto;
+    padding-bottom: 150rpx;
+  }
+  
+  .message {
+    display: flex;
+    position: relative;
+    margin-bottom: 10px;
+    width: 100%;
+    justify-content:flex-end;
+  }
+  
+  .user{
+    justify-content: flex-end;
+  }
+  
+  .bot {
+    justify-content: flex-start;
+  }
+  
+  .bubble {
+    // background-color: #f0f0f0;
+    // border-radius: 10px;
+    padding: 20rpx;
+    max-width: 550rpx;
+    padding-bottom: 60rpx;
+    padding-right: 70rpx;
+    position: relative;
+  }
+  
+  .user .bubble {
+    background-color: #2966CF;
+    color: #fff;
+    align-self: flex-end; /* 新增样式，确保用户消息在最右侧显示 */
+      /* 左上角 */
+    border-top-left-radius: 20rpx;
+    /* 右上角 */
+    border-top-right-radius: 20rpx;
+    /* 左下角 */
+    border-bottom-left-radius: 20rpx;
+    margin-right: 70rpx;
+  }
+  
+  .bot .bubble {
+    background-color: #ECBC41;
+    align-self: flex-start; /* 新增样式，确保机器人消息在最左侧显示 */
+    /* 左上角 */
+    border-top-left-radius: 20rpx;
+    /* 右上角 */
+    border-top-right-radius: 20rpx;
+    /* 右下角 */
+    border-bottom-right-radius: 20rpx;
+    margin-left: 70rpx;
+  }
+  
+  .input-container {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    width: 750rpx;
+    padding-bottom: 55rpx;
+    position: relative;
+  }
+  
+  .bottom-items{
+    position: fixed;
+    bottom: 0;
+    background-color: white;
+  }
+  .message-input {
+    width: 500rpx;
+    margin-right: 10px;
+    background-color: #f0f0f0;
+    height: 90rpx;
+    border-radius: 50rpx;
+    padding-left: 50rpx;
+    position: absolute;
+    right : 0;
+    padding-right: 100rpx;
+  }
+
+  .copyicon{
+    width: 52rpx;
+    height: 52rpx;
+    position: absolute;
+    bottom: 9rpx;
+    right: 20rpx;
+  }
+  
+  .add-circle{
+    position: absolute;
+    right: 40rpx;
+  }
+
+  .mic{
+    width: 59rpx;
+    height: 59rpx;
+    margin-right: 40rpx;
+  }
+  
+  .options-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* 可以添加其他样式，比如 margin 来控制位置 */
+  }
+  
+  .button-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-weight: 400;
+    font-size: 24rpx;
+    color: #949494;
+    margin: 0 100rpx;
+  }

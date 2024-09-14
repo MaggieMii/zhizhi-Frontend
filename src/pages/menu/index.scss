@@ -1,0 +1,76 @@
+.at-nav-bar{
+    // padding-top: env(safe-area-inset-top);
+    padding-top: 30rpx;
+}
+
+.menu .button{
+    width: 675rpx;
+    height: 391rpx;
+    border-radius: 40rpx 40rpx 40rpx 40rpx;
+    margin-bottom: 42rpx;
+    position: relative;
+}
+.menu .top{
+    background: #2966CF;
+    margin-top: 56rpx;
+}
+.menu .center{
+    background: #ECBC41;
+}
+
+.menu .bottom{
+    background: #2966CF;
+}
+
+.btimage{
+    position: absolute;
+}
+
+.topimg{
+    width: 404.65rpx;
+    height: 303.49rpx;
+    top: 26rpx;
+}
+
+.centerimg{
+    top: -50rpx;
+    left: -230rpx;
+    height:720.35rpx;
+    width: 959.3rpx;
+}
+
+.bottomimg{
+    width: 1149.42rpx;
+    height: 861.63rpx;
+    top: -250rpx;
+    left: -450rpx;
+}
+
+.ltitle{
+    color: white;
+    font-size: 61.05rpx;
+    top: 70rpx;
+    right: 30rpx;
+    position: absolute;
+    font-weight: 700;
+    letter-spacing: 20rpx;
+}
+
+.menu{
+    display: flex;
+    flex-direction: column;
+    // justify-content: center;
+    align-items: center;
+}
+
+.stitle{
+    white-space: pre-wrap;
+    color: white;
+    letter-spacing: 10rpx;
+    font-weight: lighter;
+    position: relative;
+    left: 330rpx;
+    top: 195.35rpx;
+    font-size: 21rpx;
+    line-height: 50rpx;
+}
