@@ -6,7 +6,7 @@ import mic from '../../assets/images/麦克风.png'
 import copyicon from '../../assets/images/复制文件.png'
 import Taro from '@tarojs/taro';
 // import { fetchQiniuToken, fetchToQiniu } from '@/common/api/qiniu';
-import { post, postLogin, postSession } from '@/fetch';
+import { post, postLogin,getToken, postSession } from '@/fetch';
 // import { fetchToken } from '@/common/api/smms';
 
 import "./index.scss"
@@ -14,12 +14,13 @@ import "./index.scss"
 interface Message {
   id: string;
   text?: string;
+  richText?: React.ReactNode; // 新增属性来存储富文本内容
   sender: 'user' | 'bot';
   type?: 'text' | 'image'; // 新增消息类型
   image?: string; // 新增图片URL
 }
 
-const Chat: React.FC = () => {
+const Check: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState<string>('');
 
@@ -63,17 +64,17 @@ const Chat: React.FC = () => {
       sourceType: ['album'],
       success: async (res) => {
         const filePath = res.tempFilePaths[0];
-        uploadImage(filePath, token).then((url) => {
-          setImageUrl(url);
-          postImage(url);
+        // uploadImage(filePath, token).then((url) => {
+          setImageUrl(filePath );
+          postImage(filePath );
           const newMessage: Message = {
             id: Math.random().toString(),
             sender: 'user',
             type: 'image',
-            image: url
+            image: filePath 
           };
           setMessages(prevMessages => [...prevMessages, newMessage]);
-        });
+        // });
       },
       fail: (err) => {
         console.error(err);
@@ -81,41 +82,79 @@ const Chat: React.FC = () => {
     });
   };
 
-  const uploadImage = (filePath: string, token: string) => {
-    return new Promise<string>((resolve, reject) => {
-      Taro.uploadFile({
-        url: `https://sm.ms/api/v2/upload`,
-        filePath,
-        name: 'smfile',
-        header: {
-          'Authorization': `${token}`
-        },
-        success: (uploadRes) => {
-          const data = JSON.parse(uploadRes.data);
-          if (data.images) {
-            resolve(data.images);
+  // const uploadImage = (filePath: string, token: string) => {
+  //   return new Promise<string>((resolve, reject) => {
+  //     Taro.uploadFile({
+  //       url: `https://sm.ms/api/v2/upload`,
+  //       filePath,
+  //       name: 'smfile',
+  //       header: {
+  //         'Authorization': `${token}`
+  //       },
+  //       success: (uploadRes) => {
+  //         const data = JSON.parse(uploadRes.data);
+  //         if (data.images) {
+  //           resolve(data.images);
+  //         } else {
+  //           reject(new Error('上传失败'));
+  //         }
+  //       },
+  //       fail: (uploadErr) => {
+  //         reject(uploadErr);
+  //       }
+  //     });
+  //   });
+  // };
+
+  
+
+  
+  const postImage = async (filePath: string) => {
+    Taro.uploadFile({
+      url: `http://121.41.170.32:8000/ocr/upload-invoke/`,
+      filePath,
+      name: 'file',
+      header: {
+        'Authorization': `Bearer ${await getToken()}`
+      },
+      success: (uploadRes) => {
+        const data = JSON.parse(uploadRes.data);
+        if (data.answer && data.answer.length > 0) {
+          const { input, user_answer, response } = data.answer[0];
+          const newMessage: Message = {
+            id: Math.random().toString(),
+            sender: 'bot',
+            type:'text'
+          };
+          if (response.correct) {
+            newMessage.text = response.answer;
           } else {
-            reject(new Error('上传失败'));
+            const wrongPart = user_answer.substring(response.wrong_place, response.wrong_place + response.wrong_length);
+            const placeholder = `{{wrongPart}}`;
+            const parts = user_answer.split(wrongPart);
+            const userAnswerWithHighlight = [
+              parts[0],
+              <Text key="highlight" style={{ backgroundColor: 'yellow' }}>{wrongPart}</Text>,
+              parts.slice(1).join(wrongPart),
+            ];
+            console.log('wrongPart',wrongPart)
+            newMessage.richText = (
+              <View>
+                <View>题目: {input}</View>
+                <View>你的答案: {userAnswerWithHighlight}</View>
+                <View>正确答案: {response.answer}</View>
+              </View>
+            );
           }
-        },
-        fail: (uploadErr) => {
-          reject(uploadErr);
+          console.log(data.answer[0])
+          setMessages(prevMessages => [...prevMessages, newMessage]);
         }
-      });
+      },
+      fail: (uploadErr) => {
+        console.error('上传失败:', uploadErr);
+      }
     });
   };
-
-  const postImage = (url) =>{
-    post('/ocr/invoke',{image:url}).then((res) => {
-      const botMessage: Message = {
-        id: Math.random().toString(),
-        text: res.answer,
-        sender: 'bot',
-        type: 'text'
-      };
-      setMessages(prevMessages => [...prevMessages, botMessage]);
-    });
-  }
 
   const handleOpenCamera = async () => {
     try {
@@ -164,17 +203,22 @@ const Chat: React.FC = () => {
     <View className="chat-container">
       <AtMessage />
       <View className="message-list">
-        {messages.map((message) => (
+      {messages.map((message) => (
           <View
             key={message.id}
             className={`message ${message.sender}`}
           >
             <View className={`bubble ${message.sender}`}>
-              {message.type === 'text' ? (
-                <Text className="message-text">{message.text}</Text>
+            {message.type === 'text' ? (
+                message.richText ? (
+                  message.richText
+                ) : (
+                  <Text className="message-text">{message.text}</Text>
+                )
               ) : (
-                <Image className="message-image" src={message.image??''} />
+                <Image className="message-image" src={message.image ?? ''} />
               )}
+              <Image className='copyicon' src={copyicon} onClick={() => handleCopyMessage(message.text)} />
               <Image className='copyicon' src={copyicon} onClick={() => handleCopyMessage(message.text)} />
             </View>
           </View>
@@ -210,4 +254,4 @@ const Chat: React.FC = () => {
   );
 };
 
-export default Chat;
+export default Check;

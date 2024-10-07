@@ -19,6 +19,12 @@ export default function Index() {
   }
 
   const handleBtnClick = (num) =>{
+
+    if(num == 2){
+      Taro.navigateTo({
+        url: '/pages/check/index'
+      });
+    }
     if(num == 3){
       Taro.navigateTo({
         url: '/pages/guidance/index'
@@ -44,7 +50,7 @@ export default function Index() {
         <View className='ltitle'>学习情况</View>
         <View className='stitle'>{'温故而知新, \n积跬步而致千里'}</View>
       </View>
-      <View className='button center'>
+      <View className='button center' onClick={()=>handleBtnClick(2)}>
         <Image className='btimage centerimg' src={homeworkcheck} ></Image>
         <View className='ltitle'>作业检查</View>
       </View>

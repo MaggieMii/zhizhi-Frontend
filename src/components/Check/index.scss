@@ -1,4 +1,3 @@
-/* chat.css */
 
 .chat-container {
     display: flex;
@@ -9,7 +8,7 @@
   .message-list {
     flex: 1;
     overflow-y: auto;
-    padding-bottom: 150rpx;
+    padding-bottom: 250rpx;
   }
   
   .message {
@@ -124,4 +123,9 @@
     font-size: 24rpx;
     color: #949494;
     margin: 0 100rpx;
+  }
+
+  .highlight{
+    background-color: aquamarine;
+    color: #fff;
   }
