@@ -9,7 +9,9 @@ const NavigationBar: React.FC = () => {
   return (
     <View className="navigation-bar">
       {/* 图片按钮 */}
-      <View className="left-button" onClick={() => console.log('点击了图片按钮')}>
+      <View className="left-button" onClick={() => Taro.navigateTo({
+        url: '/pages/mine/index'
+      })}>
         <Image className="left-icon" src={zhizhi} mode="aspectFit" />
       </View>
       {/* 标题 */}

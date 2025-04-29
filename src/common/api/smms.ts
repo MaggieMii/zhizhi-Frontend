@@ -1,4 +1,4 @@
-// api/qiniu.ts
+
 import Taro from '@tarojs/taro';
 import {postLogin} from '@/fetch'
 

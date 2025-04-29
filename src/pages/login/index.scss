@@ -1,0 +1,81 @@
+/* 登录和注册页面的基本样式 */
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+  background-color: #f0f0f0; /* 浅灰色背景 */
+}
+
+.form-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* 输入框和按钮的基本样式 */
+.input, .button {
+  width: 100%;
+  max-width: 400px; /* 最大宽度，防止输入框太宽 */
+  padding: 15px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px; /* 圆角边框 */
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+.button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border-radius: 8px; /* 圆角边框 */
+  font-size: 18px;
+}
+
+.button:hover {
+  background-color: #0056b3;
+}
+
+/* 切换登录和注册模式的按钮样式 */
+.toggle-button {
+  background-color: transparent;
+  color: #007bff;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.toggle-button:hover {
+  text-decoration: underline;
+}
+
+/* 为中间部分添加外框 */
+.form-box {
+  border: 1px solid #ddd;
+  padding: 30px;
+  border-radius: 8px;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
+  width: 100%;
+  max-width: 500px; /* 控制最大宽度 */
+}
+
+/* 媒体查询，用于响应式设计 */
+@media (max-width: 600px) {
+  .input, .button {
+    width: 100%;
+    padding: 12px;
+  }
+
+  .form-box {
+    padding: 20px;
+    border-radius: 6px;
+  }
+}

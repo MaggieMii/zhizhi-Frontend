@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Input, Image, Text } from '@tarojs/components';
 import { chooseImage } from '@tarojs/taro';
-import { AtMessage, AtIcon } from 'taro-ui';
+import { AtIcon } from 'taro-ui';
 import mic from '../../assets/images/麦克风.png'
 import copyicon from '../../assets/images/复制文件.png'
 import Taro from '@tarojs/taro';
@@ -10,6 +10,10 @@ import { post, postLogin,getToken, postSession } from '@/fetch';
 // import { fetchToken } from '@/common/api/smms';
 
 import "./index.scss"
+
+interface CheckProps {
+  photoPath: string;
+}
 
 interface Message {
   id: string;
@@ -20,7 +24,7 @@ interface Message {
   image?: string; // 新增图片URL
 }
 
-const Check: React.FC = () => {
+const Check: React.FC<CheckProps> = ({ photoPath }) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState<string>('');
 
@@ -110,6 +114,21 @@ const Check: React.FC = () => {
 
   
   const postImage = async (filePath: string) => {
+    console.log(1);
+  //   const data = {
+  //     answer: [
+  //         {
+  //             input: "智慧岛1.小克家养了8只鸡和23只免子,这些动物一共有多少条腿?",
+  //             user_answer: "23x4+8x2 (23+8)x2+23) =108(条) =108(年",
+  //             response: {
+  //                 answer: "小克家养了8只鸡和23只兔子。鸡每只有2条腿，兔子每只有4条腿。\n计算总腿数的方法是：\n(鸡的数量 × 每只鸡的腿数) + (兔子的数量 × 每只兔子的腿数)\n即：8只鸡 × 2条腿/只 + 23只兔子 × 4条腿/只\n= 16条腿 + 92条腿\n= 108条腿\n所以，这些动物一共有108条腿。",
+  //                 correct: false,
+  //                 wrong_place: 0,
+  //                 wrong_length: 0
+  //             }
+  //         }
+  //     ]
+  // }
     Taro.uploadFile({
       url: `http://121.41.170.32:8000/ocr/upload-invoke/`,
       filePath,
@@ -126,11 +145,18 @@ const Check: React.FC = () => {
             sender: 'bot',
             type:'text'
           };
+
+          const newUserMessage: Message = {
+            id: Math.random().toString(),
+            sender: 'user',
+            type:'text'
+          };
+
           if (response.correct) {
             newMessage.text = response.answer;
           } else {
             const wrongPart = user_answer.substring(response.wrong_place, response.wrong_place + response.wrong_length);
-            const placeholder = `{{wrongPart}}`;
+            // const placeholder = `{{wrongPart}}`;
             const parts = user_answer.split(wrongPart);
             const userAnswerWithHighlight = [
               parts[0],
@@ -138,16 +164,32 @@ const Check: React.FC = () => {
               parts.slice(1).join(wrongPart),
             ];
             console.log('wrongPart',wrongPart)
+
+            newUserMessage.richText = (
+              <View>
+                <View className='title'>
+                  作业内容
+                </View>
+                <View>
+                  <View> {input}</View>
+                </View>
+              </View>
+            )
+
             newMessage.richText = (
               <View>
-                <View>题目: {input}</View>
-                <View>你的答案: {userAnswerWithHighlight}</View>
-                <View>正确答案: {response.answer}</View>
+                <View className='title'>
+                  逻辑纠错
+                </View>
+                <View>
+                  <View>你的答案: {userAnswerWithHighlight}</View>
+                  <View>正确答案：{response.answer}</View>
+                </View>
               </View>
             );
           }
           console.log(data.answer[0])
-          setMessages(prevMessages => [...prevMessages, newMessage]);
+          setMessages(prevMessages => [...prevMessages, newUserMessage,newMessage]);
         }
       },
       fail: (uploadErr) => {
@@ -181,27 +223,23 @@ const Check: React.FC = () => {
   };
 
   useEffect(()=>{
-    post('/auth/login/',{
-      email: "1350383261@qq.com",
-      password: "123456"
-    },false).then((res) => {
-      const token = res.access_token
-      Taro.setStorage({
-      key: 'token',
-      data: token.toString(),
-      success: () => {
-        console.log('Token 设置成功');
-        // 方便看情况 log 出 longToken 后期上线之前删除掉这个
-        // console.log(token);
-      },
-    });
-    });
+    if(photoPath){
+      console.log('photoPath',photoPath);
+      postImage(photoPath);
+    }
     
-  })
+  },[photoPath])
+
+  const handleClick = ()=>{
+    Taro.navigateTo({
+      url:'/pages/history/index'
+    })
+  }
+
 
   return (
     <View className="chat-container">
-      <AtMessage />
+      <AtIcon value='clock' size='30' color='black' className='clock' onClick={handleClick}></AtIcon>
       <View className="message-list">
       {messages.map((message) => (
           <View

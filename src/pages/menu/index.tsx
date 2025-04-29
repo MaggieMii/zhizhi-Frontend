@@ -1,28 +1,41 @@
 import { View, Image } from '@tarojs/components'
 import { useLoad } from '@tarojs/taro'
-import { AtNavBar,AtSearchBar,AtIcon } from 'taro-ui'
 import NavigationBar from '../../components/NavigationBar';
 import Taro from '@tarojs/taro'
 import './index.scss'
 import knowledge from  '../../assets/images/知识网络.png'
 import homeworkcheck from '../../assets/images/作业检查.png'
 import question from '../../assets/images/题目引导.png'
+import {post} from '@/fetch'
 
 export default function Index() {
 
   useLoad(() => {
     console.log('Page loaded.')
+    post('/auth/login/',{
+      email: "1350383261@qq.com",
+      password: "123456"
+    },false).then((res) => {
+      const token = res.access_token
+      Taro.setStorage({
+      key: 'token',
+      data: token.toString(),
+      success: () => {
+        console.log('Token 设置成功');
+        // 方便看情况 log 出 longToken 后期上线之前删除掉这个
+        // console.log(token);
+      },
+    });
+    });
   })
 
-  const handleClick = () =>{
-    Taro.navigateBack();
-  }
+  
 
   const handleBtnClick = (num) =>{
 
     if(num == 2){
       Taro.navigateTo({
-        url: '/pages/check/index'
+        url: '/pages/camera/index'
       });
     }
     if(num == 3){
@@ -34,16 +47,6 @@ export default function Index() {
 
   return (
     <View className='menu'>
-      {/* <AtNavBar
-        onClickRgIconSt={handleClick}
-        onClickRgIconNd={handleClick}
-        onClickLeftIcon={handleClick}
-        color='#000'
-        title='NavBar 导航栏示例'
-        leftText='返回'
-        rightFirstIconType='bullet-list'
-        rightSecondIconType='user'
-      /> */}
       <NavigationBar />
       <View className='button top'>
         <Image className='btimage topimg' src={knowledge} ></Image>

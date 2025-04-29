@@ -1,0 +1,53 @@
+.index {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+
+    .camera-container{
+      height: 80vh;
+      border-radius: 38rpx 38rpx 38rpx 38rpx;
+    }
+  
+    .camera {
+      width: 100%;
+      height: 100%;
+    }
+  
+    .camera-button {
+      background-color: #2966CF;
+      display: flex;
+      width: 100%;
+      height: 20vh;
+      flex-direction: row;
+      align-items: center;
+      justify-content:space-around;
+  
+      > view {
+        // margin: 20rpx;
+        // border: #2966CF solid 1rpx;
+        background-color: #ECBC41;
+        width: 141rpx; /* 圆的直径 */
+        height: 141rpx;
+        border-radius: 50%; /* 使div变成圆形 */
+        box-shadow: 0 0 0 10px #2966CF, /* 外圆的阴影 */
+                    0 0 0 20px #ECBC41; /* 内圆的阴影 */
+      }
+      > Image{
+        width: 80rpx;
+        height: 84rpx;
+      }
+    }
+  
+    .bg {
+      width: 100%;
+      height: 100%;
+      background: #2966CF 0 0 no-repeat;
+      background-size: cover;
+    }
+  
+    .camera-path {
+      width: 100%;
+      height: auto;
+    }
+  }

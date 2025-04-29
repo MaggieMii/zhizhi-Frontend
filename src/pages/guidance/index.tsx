@@ -1,40 +1,25 @@
-import React, { useEffect } from 'react';
-import { View } from '@tarojs/components';
-import Chat from '../../components/Chat';
-import Taro from '@tarojs/taro';
-import { post } from '@/fetch';
+import { useState,useEffect } from 'react'
+import { View } from '@tarojs/components'
+import Chat from '../../components/Chat'
+import Loading from '../../components/Loading' // 确保已创建Loading组件
 
 const Index = () => {
+  const [showLoading, setShowLoading] = useState(true) // 默认显示loading
 
-    useEffect(()=>{
-      // Taro.getStorage({
-      //   key: "token",
-      //   success: (res) => {
-      //     const token = res.data;
-      //     if (token) {
-      //       resolve(token); // 如果token存在，解析Promise
-      //     } else {
-      //       reject(new Error("No token found")); // 如果没有token，拒绝Promise
-      //       Taro.navigateTo({ url: "/pages/login/index" }); // 导航到登录页面
-      //     }
-      //   },
-      //   fail: (err) => {
-      //     reject(new Error(`Failed to get token: ${err}`)); // 存储操作失败时拒绝Promise
-      //   }
-      // });
-      // post('/auth/login/', {
-      //   studentId: "1350383261@qq.com",
-      //   password: "123456",
-      // }).then((res) => {
-      //   Taro.setStorage({ key: 'token', data: res.data.access_token });
-      //   console.log('登录成功');
-      // });
-    })
+  // 模拟数据加载完成（实际使用时替换为你的真实逻辑）
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowLoading(false)
+    }, 2000) // 2秒后隐藏loading
+
+    return () => clearTimeout(timer)
+  }, [])
+
   return (
     <View className="index">
-      <Chat />
+      {showLoading ? <Loading /> : <Chat />}
     </View>
-  );
-};
+  )
+}
 
-export default Index;
+export default Index

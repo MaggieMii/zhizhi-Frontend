@@ -1,11 +1,22 @@
 export default defineAppConfig({
   pages: [
+    
     'pages/menu/index',
     'pages/guidance/index',
+    'pages/login/index',
+    'pages/setting/index',
+    
+    
+    
+    'pages/history/index',
+    
+    
     'pages/question/index',
     'pages/mine/index',
     'pages/main/index',
-    'pages/check/index'
+    'pages/check/index',
+    'pages/camera/index',
+    'pages/abstract/index'
   ],
   window: {
     backgroundTextStyle: 'light',
@@ -13,6 +24,11 @@ export default defineAppConfig({
     navigationBarTitleText: 'WeChat',
     navigationBarTextStyle: 'black'
   },
+  // permission: {
+  //   'scope.camera': {
+  //     desc: '您的应用需要使用您的相机',
+  //   },
+  // }
   // tabBar: {
   //   backgroundColor:"white",
   //   color:"#707070",
