@@ -6,7 +6,7 @@ import './index.scss'
 import knowledge from  '../../assets/images/知识网络.png'
 import homeworkcheck from '../../assets/images/作业检查.png'
 import question from '../../assets/images/题目引导.png'
-import {post} from '@/fetch'
+import { post } from '@/fetch'
 
 export default function Index() {
 

@@ -23,8 +23,8 @@ const Index = () => {
 
   useEffect(()=>{
     get('/ocr/history/').then((res)=>{
-      setResponses(res)
       console.log(res)
+      setResponses(res)
     })
   },[])
 
@@ -50,7 +50,9 @@ const Index = () => {
       </AtNavBar>
       {responses.map((item) => (
         <View className='view' key={item.id}>
-          <Image src={`http://121.41.170.32:8000${item.image_url}`} mode="aspectFit" />
+          <Image
+            src={`http://47.121.133.22:8000${item.image_url}`}
+            mode="aspectFit" />
         </View>
       ))}
     </View>

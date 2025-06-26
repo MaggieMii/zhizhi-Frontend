@@ -1,6 +1,6 @@
 import Taro from "@tarojs/taro";
 
-const preUrl = "http://121.41.170.32:8000";
+const preUrl = "http://47.121.133.22:8000/api";
 
 export const getToken = () => {
   return new Promise((resolve, reject) => {
@@ -88,7 +88,7 @@ export async function get(url = '', isToken = true) {
       header,
       // redirect: 'follow',
     });
-
+    console.log(response);
     if (!response.statusCode.toString().startsWith('2')) {
       if (response.statusCode === 401) {
         throw new Error('401');
@@ -181,6 +181,7 @@ export async function postSession(url = '', data = {}, sessionId ='', isToken = 
     'Content-Type': 'application/json;charset=utf-8',
     'Session-ID': sessionId
   };
+  // console.log(111)
 
   const getToken = () => {
     return new Promise((resolve, reject) => {
