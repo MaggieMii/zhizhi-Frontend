@@ -88,7 +88,7 @@ export async function get(url = '', isToken = true) {
       header,
       // redirect: 'follow',
     });
-
+    console.log(response);
     if (!response.statusCode.toString().startsWith('2')) {
       if (response.statusCode === 401) {
         throw new Error('401');
@@ -181,6 +181,7 @@ export async function postSession(url = '', data = {}, sessionId ='', isToken = 
     'Content-Type': 'application/json;charset=utf-8',
     'Session-ID': sessionId
   };
+  // console.log(111)
 
   const getToken = () => {
     return new Promise((resolve, reject) => {

@@ -42,7 +42,6 @@ export default function Index() {
         />
       </View>
       </View>
-      
       <Text>Hello world!</Text>
     </View>
   )

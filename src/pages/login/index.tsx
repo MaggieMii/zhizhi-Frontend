@@ -1,7 +1,7 @@
 import Taro from '@tarojs/taro';
 import { View, Input, Button} from '@tarojs/components';
 import { useState } from 'react';
-import {post} from '@/fetch'
+import { post } from '@/fetch'
 import './index.scss'
 
 const Login = () => {
